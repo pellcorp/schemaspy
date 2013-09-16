@@ -48,9 +48,11 @@ import java.util.jar.JarInputStream;
 import java.util.logging.Level;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
+
 import net.sourceforge.schemaspy.model.InvalidConfigurationException;
 import net.sourceforge.schemaspy.util.DbSpecificConfig;
 import net.sourceforge.schemaspy.util.Dot;
+import net.sourceforge.schemaspy.util.LineWriter;
 import net.sourceforge.schemaspy.util.PasswordReader;
 import net.sourceforge.schemaspy.view.DefaultSqlFormatter;
 import net.sourceforge.schemaspy.view.SqlFormatter;
@@ -185,7 +187,23 @@ public class Config
 
         return generateHtml;
     }
+    
+    public File getDbXmlFile() {
+    	String xmlName = db;
 
+        // some dbNames have path info in the name...strip it
+        xmlName = new File(xmlName).getName();
+
+        // some dbNames include jdbc driver details including :'s and @'s
+        String[] unusables = xmlName.split("[:@]");
+        xmlName = unusables[unusables.length - 1];
+
+        if (schema != null)
+            xmlName += '.' + schema;
+
+        return new File(outputDir, xmlName + ".xml");
+    }
+    
     public void setImpliedConstraintsEnabled(boolean includeImpliedConstraints) {
         this.includeImpliedConstraints = includeImpliedConstraints;
     }

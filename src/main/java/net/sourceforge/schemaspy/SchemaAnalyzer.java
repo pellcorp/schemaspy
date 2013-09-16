@@ -402,19 +402,9 @@ public class SchemaAnalyzer {
 
             XmlTableFormatter.getInstance().appendTables(rootNode, tables);
 
-            String xmlName = dbName;
-
-            // some dbNames have path info in the name...strip it
-            xmlName = new File(xmlName).getName();
-
-            // some dbNames include jdbc driver details including :'s and @'s
-            String[] unusables = xmlName.split("[:@]");
-            xmlName = unusables[unusables.length - 1];
-
-            if (schema != null)
-                xmlName += '.' + schema;
-
-            out = new LineWriter(new File(outputDir, xmlName + ".xml"), Config.DOT_CHARSET);
+            File xmlFile = config.getDbXmlFile();
+            
+            out = new LineWriter(xmlFile, Config.DOT_CHARSET);
             document.getDocumentElement().normalize();
             DOMUtil.printDOM(document, out);
             out.close();
@@ -664,7 +654,7 @@ public class SchemaAnalyzer {
 
         // if a classpath has been specified then use it to find the driver,
         // otherwise use whatever was used to load this class.
-        // thanks to Bruno Leonardo Gonçalves for this implementation that he
+        // thanks to Bruno Leonardo Gonï¿½alves for this implementation that he
         // used to resolve issues when running under Maven
         if (classpath.size() > 0) {
             loader = new URLClassLoader(classpath.toArray(new URL[classpath.size()]));

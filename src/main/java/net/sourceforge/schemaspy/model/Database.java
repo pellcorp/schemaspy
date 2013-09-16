@@ -18,6 +18,7 @@
  */
 package net.sourceforge.schemaspy.model;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
@@ -40,6 +41,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import net.sourceforge.schemaspy.Config;
 import net.sourceforge.schemaspy.model.xml.SchemaMeta;
 import net.sourceforge.schemaspy.model.xml.TableMeta;
@@ -110,6 +112,10 @@ public class Database {
         return config.getDescription();
     }
 
+    public File getDbXmlFile() {
+    	return config.getDbXmlFile();
+    }
+    
     public Collection<Table> getTables() {
         return tables.values();
     }
