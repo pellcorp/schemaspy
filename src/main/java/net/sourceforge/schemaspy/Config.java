@@ -188,20 +188,17 @@ public class Config
         return generateHtml;
     }
     
-    public File getDbXmlFile() {
-    	String xmlName = db;
+    public String getDbName() {
+    	String dbName = getDb();
 
         // some dbNames have path info in the name...strip it
-        xmlName = new File(xmlName).getName();
+    	dbName = new File(dbName).getName();
 
         // some dbNames include jdbc driver details including :'s and @'s
-        String[] unusables = xmlName.split("[:@]");
-        xmlName = unusables[unusables.length - 1];
+        String[] unusables = dbName.split("[:@]");
+        dbName = unusables[unusables.length - 1];
 
-        if (schema != null)
-            xmlName += '.' + schema;
-
-        return new File(outputDir, xmlName + ".xml");
+        return dbName;
     }
     
     public void setImpliedConstraintsEnabled(boolean includeImpliedConstraints) {

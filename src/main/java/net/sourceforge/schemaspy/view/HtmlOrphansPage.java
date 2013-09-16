@@ -105,9 +105,9 @@ public class HtmlOrphansPage extends HtmlDiagramFormatter {
     private void writeHeader(Database db, String title, boolean hasImpliedRelationships, LineWriter html) throws IOException {
         writeHeader(db, null, title, html);
         html.writeln("<table class='container' width='100%'>");
-        html.writeln("<tr><td class='container'>");
-        writeGeneratedOn(db.getConnectTime(), html);
-        html.writeln("</td>");
+        html.writeln("<tr>");
+        //writeGeneratedOn(db.getConnectTime(), html);
+        //html.writeln("</td>");
         html.writeln("<td class='container' align='right' valign='top' rowspan='2'>");
         writeLegend(false, html);
         html.writeln("</td></tr>");

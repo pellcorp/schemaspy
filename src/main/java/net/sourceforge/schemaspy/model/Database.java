@@ -112,8 +112,8 @@ public class Database {
         return config.getDescription();
     }
 
-    public File getDbXmlFile() {
-    	return config.getDbXmlFile();
+    public String getDbName() {
+    	return config.getDbName();
     }
     
     public Collection<Table> getTables() {

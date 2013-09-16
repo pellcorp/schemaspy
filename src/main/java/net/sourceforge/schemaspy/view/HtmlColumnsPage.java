@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+
 import net.sourceforge.schemaspy.Config;
 import net.sourceforge.schemaspy.model.Database;
 import net.sourceforge.schemaspy.model.Table;
@@ -159,9 +160,8 @@ public class HtmlColumnsPage extends HtmlFormatter {
         writeHeader(db, null, "Columns", html);
 
         html.writeln("<table width='100%' border='0'>");
-        html.writeln("<tr><td class='container'>");
-        writeGeneratedOn(db.getConnectTime(), html);
-        html.writeln("</td><td class='container' rowspan='2' align='right' valign='top'>");
+        html.writeln("<tr>");
+        html.writeln("<td class='container' rowspan='2' align='right' valign='top'>");
         writeLegend(false, false, html);
         html.writeln("</td></tr>");
         html.writeln("<tr valign='top'><td class='container' align='left' valign='top'>");
@@ -174,16 +174,7 @@ public class HtmlColumnsPage extends HtmlFormatter {
         html.writeln("</table>");
 
         html.writeln("<div class='indent'>");
-        html.write("<b>");
-        html.write(db.getName());
-        if (db.getSchema() != null) {
-            html.write('.');
-            html.write(db.getSchema());
-        } else if (db.getCatalog() != null) {
-            html.write('.');
-            html.write(db.getCatalog());
-        }
-        html.write(" contains ");
+        html.write("Schema <b>contains ");
         html.write(String.valueOf(numberOfColumns));
         html.write(" columns</b> - click on heading to sort:");
         Collection<Table> tables = db.getTables();

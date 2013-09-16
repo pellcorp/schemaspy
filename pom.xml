@@ -21,7 +21,7 @@
   <artifactId>schemaspy</artifactId>
   <packaging>jar</packaging>
   <name>SchemaSpy</name>
-  <version>5.0.1-SNAPSHOT</version>
+  <version>5.0.1-pellcorp</version>
   <url>http://schemaspy.sourceforge.net</url>
   <description>SchemaSpy generates HTML and PNG-based entity relationship diagrams from JDBC-enabled databases.</description>
   <inceptionYear>2004</inceptionYear>
