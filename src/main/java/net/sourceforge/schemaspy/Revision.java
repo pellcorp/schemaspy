@@ -18,17 +18,16 @@
  */
 package net.sourceforge.schemaspy;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.util.Properties;
 
 /**
  * @author John Currier
  */
 public class Revision {
     private static String rev = "Unknown";
-    private static final String resourceName = "/META-INF/MANIFEST.MF";
+    private static final String resourceName = "/net/sourceforge/schemaspy/implementation.properties";
 
     static {
         initialize();
@@ -36,29 +35,16 @@ public class Revision {
 
     private static void initialize() {
         InputStream in = null;
-        BufferedReader reader = null;
 
         try {
             in = Revision.class.getResourceAsStream(resourceName);
-
-            if (in != null) {
-                reader = new BufferedReader(new InputStreamReader(in));
-
-                String line;
-
-                while ((line = reader.readLine()) != null) {
-                    if (line.startsWith("Implementation-Build:")) {
-                        rev = line.split(" ")[1];
-                        break;
-                    }
-                }
-            }
+            Properties props = new Properties();
+            props.load(in);
+            in.close();
         } catch (IOException exc) {
         } finally {
             try {
-                if (reader != null) {
-                    reader.close();
-                } else if (in != null) {
+                if (in != null) {
                     in.close();
                 }
             } catch (IOException ignore) {}

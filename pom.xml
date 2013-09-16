@@ -21,19 +21,22 @@
   <artifactId>schemaspy</artifactId>
   <packaging>jar</packaging>
   <name>SchemaSpy</name>
-  <version>5.0.0</version>
+  <version>5.0.1-SNAPSHOT</version>
   <url>http://schemaspy.sourceforge.net</url>
   <description>SchemaSpy generates HTML and PNG-based entity relationship diagrams from JDBC-enabled databases.</description>
   <inceptionYear>2004</inceptionYear>
+  
   <parent>
     <groupId>org.sonatype.oss</groupId>
     <artifactId>oss-parent</artifactId>
     <version>7</version>
   </parent>
+  
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <svn.url>https://schemaspy.svn.sourceforge.net/svnroot/schemaspy</svn.url>
   </properties>
+  
   <licenses>
     <license>
       <name>GNU Lesser General Public License, version 2.1</name>
@@ -41,11 +44,13 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  
   <scm>
     <url>http://schemaspy.svn.sourceforge.net/viewvc/schemaspy/</url>
     <connection>scm:svn:${svn.url}</connection>
     <developerConnection>scm:svn:${svn.url}</developerConnection>
   </scm>
+  
   <developers>
     <developer>
       <id>john.currier</id>
@@ -59,9 +64,32 @@
 			<id>repo</id>
 			<url>${maven.repo.dir}/releases</url>
 		</repository>
+		
+		<snapshotRepository>
+			<id>snapshot-repo</id>
+			<url>${maven.repo.dir}/snapshots</url>
+		</snapshotRepository>
 	</distributionManagement>
 
   <build>
+    <resources>
+		<resource>
+			<directory>src/main/resources</directory>
+			<includes>
+				<include>**/implementation.properties</include>
+			</includes>
+			<filtering>true</filtering>
+		</resource>
+
+		<resource>
+			<directory>src/main/resources</directory>
+			<includes>
+				<include>**/*.*</include>
+			</includes>
+			<filtering>false</filtering>
+		</resource>
+	</resources>
+	
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -73,6 +101,7 @@
           <debuglevel>source,lines</debuglevel>
         </configuration>
       </plugin>
+      
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -88,6 +117,7 @@
           </archive>
         </configuration>
       </plugin>
+      
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>2.7</version>
@@ -96,6 +126,7 @@
           <windowtitle>API for ${project.name} ${project.version}</windowtitle>
         </configuration>
       </plugin>
+      
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>buildnumber-maven-plugin</artifactId>
@@ -116,6 +147,7 @@
       </plugin>
     </plugins>
   </build>
+  
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -124,6 +156,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  
   <profiles>
     <profile>
       <!-- release:prepare release:perform -->
