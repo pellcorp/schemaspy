@@ -415,6 +415,8 @@ public class SchemaAnalyzer {
             document.getDocumentElement().normalize();
             DOMUtil.printDOM(document, out);
             out.close();
+            
+            connection.close();
 
             // 'try' to make some memory available for the sorting process
             // (some people have run out of memory while RI sorting tables)
