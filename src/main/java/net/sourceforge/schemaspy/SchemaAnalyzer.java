@@ -83,16 +83,16 @@ public class SchemaAnalyzer {
     private final Logger logger = Logger.getLogger(getClass().getName());
     private boolean fineEnabled;
 
-    public Database analyze(Config config) throws Exception {
+    public boolean analyze(Config config) throws Exception {
         try {
             if (config.isHelpRequired()) {
                 config.dumpUsage(null, false);
-                return null;
+                return false;
             }
 
             if (config.isDbHelpRequired()) {
                 config.dumpUsage(null, true);
-                return null;
+                return false;
             }
 
             // set the log level for the root logger
@@ -131,7 +131,7 @@ public class SchemaAnalyzer {
                 String dbName = config.getDb();
 
                 MultipleSchemaAnalyzer.getInstance().analyze(dbName, schemas, args, config);
-                return null;
+                return true;
             }
 
             Properties properties = config.determineDbProperties(config.getDbType());
@@ -173,7 +173,7 @@ public class SchemaAnalyzer {
                 if (schemaSpec == null)
                     schemaSpec = properties.getProperty("schemaSpec", ".*");
                 MultipleSchemaAnalyzer.getInstance().analyze(dbName, meta, schemaSpec, null, args, config);
-                return null;    // no database to return
+                return true;    // no database to return
             }
 
             String catalog = config.getCatalog();
@@ -482,10 +482,10 @@ public class SchemaAnalyzer {
                 }
             }
 
-            return db;
+            return true;
         } catch (Config.MissingRequiredParameterException missingParam) {
             config.dumpUsage(missingParam.getMessage(), missingParam.isDbTypeSpecific());
-            return null;
+            return false;
         }
     }
 
